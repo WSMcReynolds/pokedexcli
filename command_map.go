@@ -13,7 +13,7 @@ func commandMap(c *config) error {
 	}
 
 	c.nextLocationsURL = locationResponse.Next
-	c.previousLocationURL = locationResponse.Previous
+	c.previousLocationsURL = locationResponse.Previous
 
 	for _, location := range locationResponse.Results {
 		fmt.Printf("%s\n", location.Name)
@@ -24,17 +24,17 @@ func commandMap(c *config) error {
 
 func commandMapb(c *config) error {
 
-	if c.previousLocationURL == nil {
+	if c.previousLocationsURL == nil {
 		return errors.New("currently on starting page of locations")
 	}
 
-	locationResponse, err := c.pokeapiClient.ListLocations(c.previousLocationURL)
+	locationResponse, err := c.pokeapiClient.ListLocations(c.previousLocationsURL)
 	if err != nil {
 		return err
 	}
 
 	c.nextLocationsURL = locationResponse.Next
-	c.previousLocationURL = locationResponse.Previous
+	c.previousLocationsURL = locationResponse.Previous
 
 	for _, location := range locationResponse.Results {
 		fmt.Printf("%s\n", location.Name)

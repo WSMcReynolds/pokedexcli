@@ -9,9 +9,9 @@ import (
 )
 
 type config struct {
-	pokeapiClient       pokeapi.Client
-	nextLocationsURL    *string
-	previousLocationURL *string
+	pokeapiClient        pokeapi.Client
+	nextLocationsURL     *string
+	previousLocationsURL *string
 }
 
 func startPokedex(c *config) {
@@ -20,6 +20,9 @@ func startPokedex(c *config) {
 		fmt.Print("pokedex > ")
 		scanner.Scan()
 		input := sanitizeCommand(scanner.Text())
+		if len(input) == 0 {
+			continue
+		}
 		cmd := input[0]
 		runCommand(cmd, c)
 		fmt.Print("\n")
