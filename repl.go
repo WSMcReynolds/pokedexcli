@@ -12,6 +12,7 @@ type config struct {
 	pokeapiClient        pokeapi.Client
 	nextLocationsURL     *string
 	previousLocationsURL *string
+	parameters           []string
 }
 
 func startPokedex(c *config) {
@@ -24,6 +25,8 @@ func startPokedex(c *config) {
 			continue
 		}
 		cmd := input[0]
+		params := input[1:]
+		c.parameters = params
 		runCommand(cmd, c)
 		fmt.Print("\n")
 	}
@@ -77,6 +80,11 @@ func getCommandsMap() map[string]cliCommand {
 			name:        "mapb",
 			description: "Display previous 20 locations",
 			callback:    commandMapb,
+		},
+		"explore": {
+			name:        "explore",
+			description: "List pokemon in a location",
+			callback:    commandExplore,
 		},
 	}
 
